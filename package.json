@@ -1,0 +1,35 @@
+{
+  "name": "translations-cli",
+  "version": "0.1.0",
+  "description": "A small script created as an attempt to make work with `react-intl` generated translation files a bit convenient",
+  "main": "translations.js",
+  "bin": {
+    "translations": "./translations.js"
+  },
+  "preferGlobal": true,
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pospolitaki/translations.git"
+  },
+  "keywords": [
+    "cli",
+    "react-intl",
+    "formatjs"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pospolitaki/translations/issues"
+  },
+  "homepage": "https://github.com/pospolitaki/translations#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "yargs": "^17.1.1"
+  }
+}
