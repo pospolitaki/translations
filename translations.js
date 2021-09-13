@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
@@ -9,25 +8,28 @@ const argv = require('./argv');
 
 const getIds = (obj) => Object.keys(obj);
 
-function getObjectFromFile(file) {
+const getObjectFromFile = (file) => {
   let objectFromFile;
   try {
     objectFromFile = JSON.parse(fs.readFileSync(file, 'utf-8'));
   } catch (error) {
-    console.log('Error while reading file: \n', error.message);
+    console.log('Error while reading file:\n', error.message);
     process.exit();
   }
   return objectFromFile;
-}
+};
 
-const convertToFormattedJSON = (
-  JSONobject,
-  charsToReplace,
-  charsToReplaceWith
-) =>
-  JSON.stringify(JSONobject)
-    .split(charsToReplace)
-    .join(charsToReplaceWith);
+const writeToFile = (output, buffer) => {
+  try {
+    fs.writeFileSync(output, buffer, 'utf-8');
+  } catch (error) {
+    console.log('Error while writing to file:\n', error.message);
+    process.exit();
+  }
+};
+
+const formatJSON = (JSONobject) =>
+  JSON.stringify(JSONobject, null, 4);
 
 function updateExistingIdCb(ids, targetObj, srcObj, id) {
   if (ids.includes(id) && !(targetObj[id] === srcObj[id])) {
@@ -73,29 +75,22 @@ function getUniqueTranslations() {
     bufferObject
   );
 
-  console.log(chalk`{green Writing messages to ${output}}`);
+  console.log(chalk`{green Writing messages to ${output}:}`);
   ids.forEach(forEachCb);
 
-  const formattedBufferObj = convertToFormattedJSON(
-    bufferObject,
-    '",',
-    '",\n'
-  );
+  const formattedBufferObj = formatJSON(bufferObject);
 
-  console.log('unique data:', bufferObject);
-  fs.writeFileSync(output, formattedBufferObj, 'utf-8');
+  writeToFile(output, formattedBufferObj);
 }
 
 function updateTranslations() {
-  const targetFile = argv.file_to_be_updated;
+  const targetFile = argv['file-to-be-updated'];
   const srcFile = argv.w;
   const action = argv.a;
   const targetObj = getObjectFromFile(targetFile);
   const srcObj = getObjectFromFile(srcFile);
   const idsToUpdate = getIds(targetObj);
   const idsToUpdateFrom = getIds(srcObj);
-
-  console.log('before update>>> ', targetObj, srcObj);
 
   const updateCb = updateExistingIdCb.bind(
     null,
@@ -136,18 +131,9 @@ function updateTranslations() {
     idsToUpdateFrom.forEach((id) => actions[action].cb(id));
   }
 
-  console.log('after: ', targetObj, srcObj);
-  const formattedJSONObject = convertToFormattedJSON(
-    targetObj,
-    '",',
-    '",\n'
-  );
-  fs.writeFileSync(
-    'src/languages/tmp.json',
-    formattedJSONObject,
-    'utf-8'
-  );
-  // fs.writeFileSync(fileToUpdate, formattedObject, 'utf-8');
+  const formattedJSONObject = formatJSON(targetObj, '",', '",\n');
+  writeToFile('src/languages/tmp.json', formattedJSONObject);
+  // write(fileToUpdate, formattedObject); // TODO: switch to real world files
 }
 
 if (argv._.includes('update')) {
@@ -157,8 +143,3 @@ if (argv._.includes('update')) {
 } else {
   yargs.showHelp();
 }
-// `formatjs` allows to translate and extract messages that should be localized in
-// to JSON file.\nThese extracted messages represented in {"id":"extracted message content"} for
-// m.\nThis small script helps to update previously created `.json` file in different ways.\nLet
-// s say you have translated JSON from your translation vendor of the same format: {"id":"transl
-// ated message content"}. So you may to to
