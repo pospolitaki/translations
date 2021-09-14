@@ -63,8 +63,8 @@ const { argv } = yargs(process.argv.slice(2))
   )
   .example([
     [
-      chalk`{cyan translations get-from en.json --exclude new-en.json --output src/languages/to-translate.json}`,
-      "writes to the to-translate.json 'id':'value' pairs contained in en.json except messages contained in new-en.json.",
+      chalk`{cyan translations get-from new-en.json --exclude en.json --output src/languages/to-translate.json}`,
+      "writes to the to-translate.json 'id':'value' pairs contained in new-en.json except messages contained in en.json.",
     ],
   ])
   .updateStrings({
