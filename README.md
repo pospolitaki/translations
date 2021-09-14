@@ -40,7 +40,7 @@ src/languages
   "Home.home": "Inicio",
   "Login.login": "Iniciar Sesión",
   "Login.password": "Contraseña",
-  ... and more 100 lines
+  ... and 100 more lines
 }
 ```
 
