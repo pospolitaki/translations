@@ -109,11 +109,11 @@ function updateTranslations() {
 
   const actions = {
     'update-existing': {
-      description: chalk`{green Updating {magentaBright ${targetFile} }..}`,
+      description: chalk`{green Updating {magentaBright ${targetFile}}..}`,
       cb: updateCb,
     },
     'append-missing': {
-      description: chalk`{green Appending to {magentaBright ${targetFile} } new from {magentaBright ${srcFile} }}..`,
+      description: chalk`{green Appending to {magentaBright ${targetFile} } new from {magentaBright ${srcFile}}..}`,
       cb: appendCb,
     },
     'update-all': {
