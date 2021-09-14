@@ -4,7 +4,7 @@ const yargs = require('yargs');
 
 const { argv } = yargs(process.argv.slice(2))
   .demandCommand(1)
-  .usage(chalk`{bold Usage:}\nnpm run translations -- <command>`)
+  .usage(chalk`{bold Usage:}\ntranslations <command>`)
   .command(
     'update <file-to-be-updated>',
     'Update your translation in one file with translations from another.',
@@ -13,16 +13,15 @@ const { argv } = yargs(process.argv.slice(2))
         alias: 'with',
         nargs: 1,
         describe:
-          "path to .json file with messages entries in format 'id':'translation' that will be used for update.",
+          "path to the .json file with messages entries in format 'id':'translation' that will be used for update.",
         type: 'string',
         demandOption: true,
         normalize: true,
-        // default: 'src/languages/en-new.json',
       },
       a: {
         alias: 'action',
         nargs: 1,
-        describe: chalk`{bold.magenta optional} argument: provide what to do with translations,\nif not given - updates already existing ids and then appends new ids.\n`,
+        describe: chalk`{bold.magenta optional} argument: provide what to do with the translations,\nif not given - updates already existing ids and then appends new ids.\n`,
         type: 'string',
         demandOption: false,
         choices: ['update-existing', 'append-missing', 'update-all'],
@@ -32,12 +31,12 @@ const { argv } = yargs(process.argv.slice(2))
   )
   .example([
     [
-      chalk`{green npm run translations -- update en.json --with new-en.json -a update-existing}`,
-      'updates values of the existing messages `id` in en.json with values of the corresponding `id`s in new-en.json.',
+      chalk`{green translations update en.json --with new-en.json -a update-existing}`,
+      'updates values of the existing messages `id` in en.json with the values of the corresponding `id`s in new-en.json.',
     ],
     [
-      chalk`{green npm run translations -- update en.json --with new-en.json}`,
-      "first updates values of the messages `id` in en.json with values of the corresponding `id`s in new-en.json then appends all 'id':'value' pairs which not in en.json.",
+      chalk`{green translations update en.json --with new-en.json}`,
+      "first updates values of the messages `id` in the en.json with the values of the corresponding `id`s in the new-en.json then appends all 'id':'value' pairs which not in the en.json.",
     ],
   ])
   .command(
@@ -48,16 +47,15 @@ const { argv } = yargs(process.argv.slice(2))
         alias: 'exclude',
         nargs: 1,
         describe:
-          "path to .json file with messages entries to be excluded in format 'id':'translation'.",
+          "path to the .json file with messages entries to be excluded in the format 'id':'translation'.",
         type: 'string',
         demandOption: true,
         normalize: true,
-        // default: 'src/languages/en-new.json',
       },
       o: {
         alias: 'output',
         nargs: 1,
-        describe: chalk`{bold.magenta optional} argument: provide path to file to write command output,\nif not given - writes to 'untranslated-messages.json' in the same directory as file passed as first argument.\n`,
+        describe: chalk`{bold.magenta optional} argument: provide the path to file to write the command output,\nif not given - writes to the 'untranslated-messages.json' in the same directory as file passed as first argument.\n`,
         type: 'string',
         demandOption: false,
       },
@@ -65,8 +63,8 @@ const { argv } = yargs(process.argv.slice(2))
   )
   .example([
     [
-      chalk`{cyan npm run translations -- get-from en.json --exclude new-en.json --output src/languages/to-translate.json}`,
-      "writes to to-translate.json 'id':'value' pairs contained in en.json except messages contained in new-en.json.",
+      chalk`{cyan translations get-from en.json --exclude new-en.json --output src/languages/to-translate.json}`,
+      "writes to the to-translate.json 'id':'value' pairs contained in en.json except messages contained in new-en.json.",
     ],
   ])
   .updateStrings({
