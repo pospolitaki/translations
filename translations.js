@@ -30,7 +30,7 @@ const writeToFile = (output, buffer) => {
 };
 
 const formatJSON = (JSONobject) =>
-  JSON.stringify(JSONobject, null, 4);
+  JSON.stringify(JSONobject, null, 2);
 
 function updateExistingIdCb(ids, targetObj, srcObj, id) {
   if (ids.includes(id) && !(targetObj[id] === srcObj[id])) {
@@ -76,7 +76,7 @@ function getUniqueTranslations() {
     bufferObject
   );
 
-  console.log(chalk`{green Writing messages to ${output}:}`);
+  console.log(chalk`{green Writing messages to ${output}..}`);
   ids.forEach(forEachCb);
 
   const formattedBufferObj = formatJSON(bufferObject);
@@ -109,16 +109,16 @@ function updateTranslations() {
 
   const actions = {
     'update-existing': {
-      description: chalk`{green Updating {magentaBright ${targetFile} }}`,
+      description: chalk`{green Updating {magentaBright ${targetFile} }..}`,
       cb: updateCb,
     },
     'append-missing': {
-      description: chalk`{green Appending new from {magentaBright ${srcFile} }}`,
+      description: chalk`{green Appending to {magentaBright ${targetFile} } new from {magentaBright ${srcFile} }}..`,
       cb: appendCb,
     },
     'update-all': {
       description: chalk.green(
-        'Updating existing and appending new ids'
+        'Updating existing and appending new ids..'
       ),
       cb: (id) => {
         updateCb(id);
