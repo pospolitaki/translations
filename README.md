@@ -2,15 +2,11 @@
 
 ## Description
 
----
-
 <br>
 A small script created as an attempt to make work with `react-intl` generated translation files a bit convenient <br>
 <br>
 
 ## Installation
-
----
 
 <br>
 This package should be installed globally cause it provides an executable `translations` command that you can run from the shell (CLI), and it could be reused across projects: <br>
@@ -23,8 +19,6 @@ npm install -g translations-cli
 <br>
 
 ## Usage
-
----
 
 <br>
 
