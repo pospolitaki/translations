@@ -142,10 +142,10 @@ The `fresh-es.json` contains:
 After this you have to merge newly translated messages from the `fresh-es.json` into previously translated messages in the `es.json`.<br>
 In this point you may have two scenarios:
 
-1. add to `es.json` new messages only (new by `id` value) and preserve it from overriding messages with already existing `ids` but new `value` (e.g. if translations for message with corresponding `id` was changed in `fresh-es.json` recently).
-2. to update all messages despite of the fact that the `id` already exists in the `es.json` and gonna be overridden with message from `fresh-es.json`.
+1. add to `es.json` new messages only (new by `id` value) and preserve from overriding messages with already existing `ids` but with a new `value` (e.g. if translations for message with corresponding `id` was changed in `fresh-es.json` recently).
+2. to update all messages despite of the fact that their `ids` already exist in the `es.json` and gonna be overridden with messages from the `fresh-es.json`.
 
-So `es.json`:
+So currently `es.json` is:
 
 ```
 {
@@ -168,7 +168,7 @@ and `fresh-es.json`:
 }
 ```
 
-We can see that the message with `id` "Home.home" was modified and "Login.email" was added.<br>
+We can see that in the `fresh-es.json` the message with `id` "Home.home" was modified and "Login.email" was added.<br>
 Let's check next commands results.
 
 1. Command:
@@ -214,7 +214,7 @@ If `-a` (`--action`) flag wasn't provided explicitly:
 translations update src/languages/es.json --with src/languages/fresh-es.json
 ```
 
-it's the same as:
+is the same as:
 
 ```
 translations update src/languages/es.json --with src/languages/fresh-es.json --action update-all
