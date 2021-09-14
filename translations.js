@@ -132,9 +132,8 @@ function updateTranslations() {
     idsToUpdateFrom.forEach((id) => actions[action].cb(id));
   }
 
-  const formattedJSONObject = formatJSON(targetObj, '",', '",\n');
-  writeToFile('src/languages/tmp.json', formattedJSONObject);
-  // write(fileToUpdate, formattedObject); // TODO: switch to real world files
+  const formattedJSONObject = formatJSON(targetObj);
+  writeToFile(targetFile, formattedJSONObject);
 }
 
 if (argv._.includes('update')) {
